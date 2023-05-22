@@ -21,8 +21,15 @@
                     </button>
 
                     <!-- Table with stripped rows -->
-                    <table class="table table-striped">
-                        <thead></thead>
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Name</th>
+                                <th>RFID</th>
+                                <th>#</th>
+                            </tr>
+                        </thead>
                         <tbody></tbody>
                     </table>
                     <!-- End Table with stripped rows -->
@@ -35,15 +42,25 @@
 <div class="modal fade" id="form_create_user" tabindex="-1"></div>
 
 <script>
-    function SaveUser(){
+    function SaveUser() {
         var data = $('#formAddUser').serializeArray();
-        // $.ajax({
-        //     url: 'api/user.php',
-        //     type: 'POST',
-        //     data: data,
-        //     success: function(result){
-        //         console.log(result);
-        //     }
-        // });
+        $.ajax({
+            url: 'api/user.php',
+            type: 'POST',
+            data: {
+                action: 'create',
+                data: data
+            },
+            success: function(result) {
+                var data = JSON.parse(result);
+                Swal.fire({
+                    position: 'top-end',
+                    icon: `${data.status}`,
+                    title: `${data.message}`,
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
+        });
     }
 </script>

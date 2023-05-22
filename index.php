@@ -1,4 +1,12 @@
 <?php
+session_start();
+$name     = $_SESSION['name'];
+$username = $_SESSION['username'];
+
+if (!isset($_SESSION['username'])) {
+  header('location: login.php');
+}
+
 $page = '';
 if (isset($_GET['page'])) {
   $page = $_GET['page'];
@@ -68,12 +76,12 @@ if (isset($_GET['page'])) {
         <li class="nav-item dropdown pe-3">
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle" />
-            <span class="d-none d-md-block dropdown-toggle ps-2">Nama Yang Login</span></a>
+            <span class="d-none d-md-block dropdown-toggle ps-2"><?= $name ?></span></a>
           <!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="#">
+              <a class="dropdown-item d-flex align-items-center" href="api/logout.php">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Sign Out</span>
               </a>
@@ -97,7 +105,6 @@ if (isset($_GET['page'])) {
           <span>Dashboard</span>
         </a>
       </li>
-      <!-- End Dashboard Nav -->
 
       <li class="nav-heading">Components</li>
 
@@ -106,33 +113,35 @@ if (isset($_GET['page'])) {
           <i class="bi bi-menu-button-wide"></i><span>Access Log</span>
         </a>
       </li>
-      <!-- End Components Nav -->
 
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link <?= $page == 'rfid_tag' ? '' : 'collapsed' ?>" href="?page=rfid_tag">
           <i class="bi bi-journal-text"></i><span>RFID Tag</span>
         </a>
       </li>
-      <!-- End Forms Nav -->
 
       <li class="nav-item">
         <a class="nav-link <?= $page == 'rfid_user_recovery' ? '' : 'collapsed' ?>" href="?page=rfid_user_recovery">
           <i class="bi bi-layout-text-window-reverse"></i><span>RFID User Recovery</span>
         </a>
-      </li>
-      <!-- End Tables Nav -->
+      </li> -->
 
       <li class="nav-item">
         <a class="nav-link <?= $page == 'users' ? '' : 'collapsed' ?>" href="?page=users">
-          <i class="bi bi-person-lines-fill"></i><span>Users</span>
+          <i class="bi bi-person-lines-fill"></i><span>Users Access</span>
         </a>
       </li>
-      <!-- End Charts Nav -->
 
       <li class="nav-heading">Session</li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
+        <a class="nav-link <?= $page == 'admin' ? '' : 'collapsed' ?>" href="?page=admin">
+          <i class="bi bi-person-check"></i><span>Admin List</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="api/logout.php">
           <i class="bi bi-box-arrow-right"></i><span>Logout</span>
         </a>
       </li>
@@ -153,6 +162,8 @@ if (isset($_GET['page'])) {
         include 'menu/rfid_user_recovery.php';
       } elseif ($_GET['page'] == 'users') {
         include 'menu/users.php';
+      } elseif ($_GET['page'] == 'admin') {
+        include 'menu/admin_list.php';
       }
     } else {
       include 'menu/dashboard.php';
@@ -177,6 +188,7 @@ if (isset($_GET['page'])) {
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
   <script src="assets/js/jquery-3.7.0.min.js"></script>
+  <script src="assets/js/sweetalert2@11.js"></script>
 
   <script>
     function OpenModal(link, data, place) {
