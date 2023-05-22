@@ -1,6 +1,6 @@
 <?php
 $page = '';
-if(isset($_GET['page'])){
+if (isset($_GET['page'])) {
   $page = $_GET['page'];
 }
 ?>
@@ -100,7 +100,7 @@ if(isset($_GET['page'])){
       <!-- End Dashboard Nav -->
 
       <li class="nav-heading">Components</li>
-      
+
       <li class="nav-item">
         <a class="nav-link <?= $page == 'access_log' ? '' : 'collapsed' ?>" href="?page=access_log">
           <i class="bi bi-menu-button-wide"></i><span>Access Log</span>
@@ -124,7 +124,7 @@ if(isset($_GET['page'])){
 
       <li class="nav-item">
         <a class="nav-link <?= $page == 'users' ? '' : 'collapsed' ?>" href="?page=users">
-          <i class="bi bi-bar-chart"></i><span>Users</span>
+          <i class="bi bi-person-lines-fill"></i><span>Users</span>
         </a>
       </li>
       <!-- End Charts Nav -->
@@ -176,6 +176,21 @@ if(isset($_GET['page'])){
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+  <script src="assets/js/jquery-3.7.0.min.js"></script>
+
+  <script>
+    function OpenModal(link, data, place) {
+      $.ajax({
+        url: link,
+        type: 'POST',
+        data: data,
+        success: function(result) {
+          $(`#${place}`).html(result);
+          $(`#${place}`).modal('show');
+        }
+      })
+    }
+  </script>
 </body>
 
 </html>
