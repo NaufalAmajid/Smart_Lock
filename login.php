@@ -67,7 +67,7 @@
                                     <form class="row g-3 needs-validation" novalidate id="form_login">
                                         <div class="col-12">
                                             <label for="yourUsername" class="form-label">Username</label>
-                                            <input type="text" name="username" class="form-control" id="yourUsername" autofocus autocomplete="false" required>
+                                            <input type="text" name="username" class="form-control" id="yourUsername" autofocus autocomplete="none" required>
                                             <div class="invalid-feedback">Please enter your username.</div>
                                         </div>
 

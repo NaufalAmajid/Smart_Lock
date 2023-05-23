@@ -16,7 +16,7 @@
                 </div>
                 <div class="col-12">
                     <label for="inputEmail4" class="form-label">Name</label>
-                    <input type="email" class="form-control" id="Name" name="name" placeholder="name...">
+                    <input type="email" class="form-control" id="Name" name="name" placeholder="name..." autocomplete="off">
                 </div>
                 <div class="col-12">
                     <label for="inputPassword4" class="form-label">Address</label>

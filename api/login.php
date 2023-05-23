@@ -16,13 +16,18 @@ if ($action == 'login') {
         die();
     }
 
-    $sql = "SELECT * FROM admins WHERE username = '$data[username]' AND password = '$data[password]'";
+    $password = md5($data['password']);
+
+    $sql = "SELECT * FROM admins WHERE username = '$data[username]' AND password = '$password'";
     $res = mysqli_query($connect, $sql);
     $row = mysqli_fetch_assoc($res);
 
     if ($row) {
+        $_SESSION['id'] = $row['id'];
         $_SESSION['username'] = $row['username'];
-        $_SESSION['name'] = $row['nama'];
+        $_SESSION['name'] = $row['name'];
+        $_SESSION['telegram_id'] = $row['telegram_id'];
+        $_SESSION['admin_id'] = $row['admin_id'];
         echo json_encode(['status' => 'success', 'message' => 'success login']);
     } else {
         echo json_encode(['status' => 'error', 'message' => 'username or password wrong']);

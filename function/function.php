@@ -5,45 +5,53 @@ class GlobalFunction
 {
     function Connections()
     {
-        $koneksi = mysqli_connect('localhost', 'root', '', 'smartlock');
-        return $koneksi;
+        $connect = mysqli_connect('localhost', 'root', '', 'smartlock');
+        return $connect;
     }
 
-    function GlobalSave($koneksi, $tabel, array $data)
+    function GlobalSave($connect, $tabel, array $data)
     {
         $sql = "insert into " . $tabel . " set ";
         foreach ($data as $field => $value) {
-            $sql .= "" . $field . "='" . mysqli_real_escape_string($koneksi, $value) . "',";
+            $sql .= "" . $field . "='" . mysqli_real_escape_string($connect, $value) . "',";
         }
         $sql = rtrim($sql, ',');
-        $result = mysqli_query($koneksi, $sql);
-        if ($result) {
-            return "S";
-        } else {
-            echo "\n\n ERROR FOTO INI DAN COPY TEXT ERROR LALU KIRIM KE EDP : \n==========================\n\n" . $sql . "\n\n==========================\n" . mysqli_error($koneksi);
-            // return $sql;
-            die();
-        }
+        $result = mysqli_query($connect, $sql);
+        return $result;
     }
 
-    function GlobalUpdate($koneksi, $tabel, $data, $kategori)
+    function GlobalUpdate($connect, $tabel, $data, $category)
     {
         $sql = "update $tabel set ";
         foreach ($data as $field => $value) {
-            $sql .= "" . $field . "='" . mysqli_real_escape_string($koneksi, $value) . "', ";
+            $sql .= "" . $field . "='" . mysqli_real_escape_string($connect, $value) . "', ";
         }
         $sql = rtrim($sql, ', ');
         $sql .= " where ";
-        foreach ($kategori as $field => $value) {
-            $sql .= "" . $field . "='" . mysqli_real_escape_string($koneksi, $value) . "' and ";
+        foreach ($category as $field => $value) {
+            $sql .= "" . $field . "='" . mysqli_real_escape_string($connect, $value) . "' and ";
         }
         $sql = rtrim($sql, ' and ');
-        $hasil = mysqli_query($koneksi, $sql);
-        if ($hasil) {
-            echo "US";
-        } else {
-            echo "UG";
+        $result = mysqli_query($connect, $sql);
+        return $result;
+    }
+
+    function GlobalDelete($connect, $tabel, $category)
+    {
+        $sql = "delete from $tabel where ";
+        foreach ($category as $field => $value) {
+            $sql .= "" . $field . "='" . mysqli_real_escape_string($connect, $value) . "' and ";
         }
+        $sql = rtrim($sql, ' and ');
+        $result = mysqli_query($connect, $sql);
+        return $result;
+    }
+
+    function DeleteRFID($connect)
+    {
+        $sql = "DELETE FROM rfid_point";
+        $result = mysqli_query($connect, $sql);
+        return $result;
     }
 
     function DateDesc($tanggal)

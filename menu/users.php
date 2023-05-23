@@ -2,7 +2,7 @@
     <h1>Users</h1>
     <nav>
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item"><a href="index.php">Home</a></li>
             <li class="breadcrumb-item active">Users</li>
         </ol>
     </nav>
@@ -15,25 +15,35 @@
 
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">List User Have Access Lock</h5>
-                    <button type="button" class="btn btn-primary btn-sm mb-3" style="float: right; margin-right: 10px; margin-bottom: 10px; margin-top: -40px;" onclick="OpenModal('pages/form_create_user.php', 'no data sender', 'form_create_user')">
-                        <i class="bi bi-person-plus-fill"></i> User
-                    </button>
-
-                    <!-- Table with stripped rows -->
-                    <table class="table table-striped table-bordered">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Name</th>
-                                <th>RFID</th>
-                                <th>#</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                    <!-- End Table with stripped rows -->
-
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <h5 class="card-title">List User Have Access Lock</h5>
+                        </div>
+                        <div class="col-lg-8 mt-3">
+                            <button type="button" class="btn btn-primary btn-sm mb-3" style="float: right;" onclick="OpenModal('pages/form_create_user.php', 'no data sender', 'form_create_user')">
+                                <i class="bi bi-person-plus-fill"></i> User
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="table-responsive">
+                                <!-- Table with stripped rows -->
+                                <table class="table table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Name</th>
+                                            <th>RFID</th>
+                                            <th>#</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                                <!-- End Table with stripped rows -->
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
