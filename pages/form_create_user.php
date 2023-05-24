@@ -32,20 +32,20 @@
     </div>
 </div>
 <script>
-    $(document).ready(function() {
-        setInterval(() => {
-            GetRFID();
-        }, 1000);
-    });
+    // $(document).ready(function() {
+    //     setInterval(() => {
+    //         GetRFID();
+    //     }, 1000);
+    // });
 
-    function GetRFID() {
-        $.ajax({
-            url: 'api/get_rfid.php',
-            type: 'POST',
-            success: function(result) {
-                var data = JSON.parse(result);
-                $('#rfid').val(data.rfid);
-            }
-        })
-    }
+    // function GetRFID() {
+    //     $.ajax({
+    //         url: 'api/get_rfid.php',
+    //         type: 'POST',
+    //         success: function(result) {
+    //             var data = JSON.parse(result);
+    //             $('#rfid').val(data.rfid);
+    //         }
+    //     })
+    // }
 </script>

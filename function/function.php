@@ -9,6 +9,18 @@ class GlobalFunction
         return $connect;
     }
 
+    function GlobalSelect($connect, $tabel, $category)
+    {
+        $sql = "select * from $tabel where ";
+        foreach ($category as $field => $value) {
+            $sql .= "" . $field . "='" . mysqli_real_escape_string($connect, $value) . "' and ";
+        }
+        $sql = rtrim($sql, ' and ');
+        $result = mysqli_query($connect, $sql);
+        $row = mysqli_fetch_array($result);
+        return $row;
+    }
+
     function GlobalSave($connect, $tabel, array $data)
     {
         $sql = "insert into " . $tabel . " set ";
@@ -92,5 +104,14 @@ class GlobalFunction
             $send[$val['name']] = $val['value'];
         }
         return $send;
+    }
+
+    function SendTelegramMessage($msg, $telegramId)
+    {
+        $telegramBotId = 'bot6041275936:AAG6Yf_y1NFs8YqN-tMrChGOCXPo5pwhv5c';
+        $url = 'https://api.telegram.org/' . $telegramBotId . '/sendMessage?chat_id=' . $telegramId . '
+                &text=' . $msg . '&parse_mode=html';
+        $result = file_get_contents($url, true);
+        return $result;
     }
 }

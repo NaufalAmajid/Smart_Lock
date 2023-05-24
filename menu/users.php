@@ -38,7 +38,21 @@
                                             <th>#</th>
                                         </tr>
                                     </thead>
-                                    <tbody></tbody>
+                                    <tbody>
+                                        <tr>
+                                            <td>1.</td>
+                                            <td>Sample Name</td>
+                                            <td>0023</td>
+                                            <td>
+                                                <button type="button" class="btn btn-outline-info btn-sm" onclick="UpdateAdmin('<?= $ad['id'] ?>')">
+                                                    <i class="bi bi-pencil-square"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-outline-danger btn-sm" onclick="DeleteAdmin('<?= $ad['id'] ?>')">
+                                                    <i class="bi bi-trash-fill"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
                                 </table>
                                 <!-- End Table with stripped rows -->
                             </div>
