@@ -82,6 +82,14 @@ if ($action == 'update') {
 if ($action == 'delete') {
     $id = $_POST['id'];
     $category = ['id' => $id];
+    $checkChild = $func->GlobalSelect($connect, 'users', ['admin_id' => $_POST['adminId']]);
+    if ($checkChild) {
+        echo json_encode([
+            'status' => 'error',
+            'message' => 'failed delete admin, because this admin has child, select other admin to replace this admin'
+        ]);
+        die();
+    }
     $del = $func->GlobalDelete($connect, 'admins', $category);
     if ($del) {
         echo json_encode([
@@ -95,3 +103,6 @@ if ($action == 'delete') {
         ]);
     }
 }
+
+// close connection
+mysqli_close($connect);

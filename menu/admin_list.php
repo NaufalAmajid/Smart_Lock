@@ -1,3 +1,6 @@
+<?php
+unset($_SESSION['new_rfid']);
+?>
 <div class="pagetitle">
     <h1>List</h1>
     <nav>
@@ -61,7 +64,7 @@
                                                     <button type="button" class="btn btn-outline-info btn-sm" onclick="UpdateAdmin('<?= $ad['id'] ?>')">
                                                         <i class="bi bi-pencil-square"></i>
                                                     </button>
-                                                    <button type="button" class="btn btn-outline-danger btn-sm" onclick="DeleteAdmin('<?= $ad['id'] ?>')">
+                                                    <button type="button" class="btn btn-outline-danger btn-sm" onclick="DeleteAdmin('<?= $ad['id'] ?>', '<?= $ad['admin_id'] ?>')">
                                                         <i class="bi bi-trash-fill"></i>
                                                     </button>
                                                 </td>
@@ -81,6 +84,46 @@
 </section>
 <div class="modal fade" id="place_admin" tabindex="-1"></div>
 <script>
+    $(document).ready(function() {
+        setInterval(function() {
+            MessageTeleCheck();
+        }, 3000);
+    });
+
+    function MessageTeleCheck() {
+        $.ajax({
+            url: 'api/check_msg_telegram.php',
+            type: 'GET',
+            success: function(result) {
+                var data = JSON.parse(result);
+                var msg = data.result[0].message.text;
+                var teleId = data.result[0].message.chat.id;
+                var name = data.result[0].message.from.first_name + ' ' + data.result[0].message.from.last_name;
+                var username = data.result[0].message.from.username;
+                TelegramAdmin(msg, teleId);
+            }
+        })
+    }
+
+    function TelegramAdmin(adminId, teleId) {
+        $.ajax({
+            url: 'api/get_telegram_id.php',
+            type: 'POST',
+            data: {
+                adminId: adminId,
+                teleId: teleId
+            },
+            success: function(response) {
+                var data = JSON.parse(response);
+                if (data.status == 'success') {
+                    location.reload();
+                } else {
+                    return false;
+                }
+            }
+        })
+    }
+
     function SaveAdmin() {
         var data = $('#formAddAdmin').serializeArray();
         $.ajax({
@@ -110,7 +153,7 @@
         });
     }
 
-    function DeleteAdmin(id) {
+    function DeleteAdmin(id, adminId) {
         Swal.fire({
             title: 'Are you sure?',
             text: "You're data will be deleted!",
@@ -126,6 +169,7 @@
                     type: 'POST',
                     data: {
                         action: 'delete',
+                        adminId: adminId,
                         id: id
                     },
                     success: function(result) {

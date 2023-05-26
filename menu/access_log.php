@@ -1,3 +1,6 @@
+<?php
+unset($_SESSION['new_rfid']);
+?>
 <div class="pagetitle">
     <h1>Access Log</h1>
     <nav>

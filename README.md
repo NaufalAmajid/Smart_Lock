@@ -22,6 +22,7 @@ DATABASE NAME = smartlock
     - id --> [ integer, primary_key, auto_increment ]
     - card_id --> [ varchar(20) ]
     - name --> [ varchar(50) ]
+    - address --> [ text ]
     - admin_id --> [ varchar(20) ]
 
 - rfid_point

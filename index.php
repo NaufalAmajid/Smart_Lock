@@ -49,6 +49,8 @@ if (isset($_GET['page'])) {
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet" />
+  <script src="assets/js/jquery-3.7.0.min.js"></script>
+  <script src="assets/js/sweetalert2@11.js"></script>
 
   <!-- =======================================================
   * Template Name: NiceAdmin
@@ -202,8 +204,6 @@ if (isset($_GET['page'])) {
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
-  <script src="assets/js/jquery-3.7.0.min.js"></script>
-  <script src="assets/js/sweetalert2@11.js"></script>
 
   <script>
     function OpenModal(link, data, place) {
@@ -213,6 +213,9 @@ if (isset($_GET['page'])) {
         data: data,
         success: function(result) {
           $(`#${place}`).html(result);
+          $(`#${place}`).modal({
+            backdrop: 'static',
+          });
           $(`#${place}`).modal('show');
         }
       })

@@ -1,3 +1,7 @@
+<?php
+session_start();
+$_SESSION['new_rfid'] = true;
+?>
 <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header">
@@ -8,18 +12,18 @@
             <!-- Start Form -->
             <form class="row g-3" id="formAddUser">
                 <div class="col-12">
-                    <label for="inputNanme4" class="form-label">RFID</label>
-                    <input type="text" class="form-control" id="rfid" name="rfid" readonly>
+                    <label for="card_id" class="form-label">RFID</label>
+                    <input type="text" class="form-control" id="card_id" name="card_id" readonly>
                     <div class="form-text" style="font-size: 12px;">
                         <i class="text-primary">*please, scan the card / pin to get RFID</i>
                     </div>
                 </div>
                 <div class="col-12">
-                    <label for="inputEmail4" class="form-label">Name</label>
-                    <input type="email" class="form-control" id="Name" name="name" placeholder="name..." autocomplete="off">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="email" class="form-control" id="name" name="name" placeholder="name..." autocomplete="off">
                 </div>
                 <div class="col-12">
-                    <label for="inputPassword4" class="form-label">Address</label>
+                    <label for="address" class="form-label">Address</label>
                     <textarea class="form-control" id="address" name="address" rows="3" placeholder="..."></textarea>
                 </div>
             </form>
@@ -32,20 +36,20 @@
     </div>
 </div>
 <script>
-    // $(document).ready(function() {
-    //     setInterval(() => {
-    //         GetRFID();
-    //     }, 1000);
-    // });
+    $(document).ready(function() {
+        setInterval(() => {
+            GetRFID();
+        }, 1000);
+    });
 
-    // function GetRFID() {
-    //     $.ajax({
-    //         url: 'api/get_rfid.php',
-    //         type: 'POST',
-    //         success: function(result) {
-    //             var data = JSON.parse(result);
-    //             $('#rfid').val(data.rfid);
-    //         }
-    //     })
-    // }
+    function GetRFID() {
+        $.ajax({
+            url: 'api/get_rfid.php',
+            type: 'POST',
+            success: function(result) {
+                var data = JSON.parse(result);
+                $('#card_id').val(data.rfid);
+            }
+        })
+    }
 </script>
